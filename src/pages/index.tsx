@@ -8,6 +8,7 @@ import Header from "~/components/Header";
 import React, { useState } from "react";
 import NoteEditor from "~/components/NoteEditor";
 import NoteCard from "~/components/NoteCard";
+import toast from "react-hot-toast";
 
 const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
@@ -49,6 +50,7 @@ const Content: React.FC = () => {
   const createTopic = api.topic.create.useMutation({
     onSuccess: () => {
       void refetchTopics();
+      toast.success('Topic created!')
     },
   });
 
@@ -64,12 +66,14 @@ const Content: React.FC = () => {
   const createNote = api.note.create.useMutation({
     onSuccess: () => {
       void refetchNotes();
+      toast.success('Note created!')
     },
   });
 
   const deleteNote = api.note.delete.useMutation({
     onSuccess: () => {
       void refetchNotes();
+      toast.error('Note deleted!')
     },
   });
 
